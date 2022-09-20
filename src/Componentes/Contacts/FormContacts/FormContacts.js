@@ -5,6 +5,14 @@ import { Link } from "react-router-dom"
 // import './FormContacts.css'
 
 function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
+  const [form,setForm]= useState({
+    name:"",
+    surname:"",
+    phone:"",
+    email:"",
+    grupos:"",
+  })
+  const [validacion, SetValidacion]= useState(false)
 
   // const {groupsId}= useParams ();
   // estados para submit
@@ -37,6 +45,10 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+ let validacion= Object.values(form).some(obj => obj == "");
+ SetValidacion( validacion)
+
+
     const data = {
       Nome: name,
       Sobrenome: surname,
@@ -50,7 +62,7 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
     }
     onSubmit(data);
   };
-
+   
   return (
     <>
       <section className="add-contact">
@@ -80,7 +92,9 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
                     placeholder="Nome"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+             
                   />
+                  {validacion && form["name"] == "" ? <span>o campos nome precisar ser preenchido</span>:""}
                 </div>
                 <div className="mb-2">
                   <input
@@ -90,6 +104,7 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
                     value={surname}
                     onChange={(e) => setSurName(e.target.value)}
                   />
+                  {validacion  && form["surname"] == "" ? <span>o campos Sobrenome precisar ser preenchido</span>:""}
                 </div>
                 <div className="mb-2">
                   <input
@@ -99,6 +114,7 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
+                  {validacion  && form["phone"] == "" ? <span>o campos Telefone precisar ser preenchido</span>:""}
                 </div>
                 <div className="mb-2">
                   <input
@@ -108,6 +124,9 @@ function FormContacts({ groupsId, onSubmit, buttonTitle, contactsInfo }) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  
+                  {validacion  && form["email"] == "" ? <span>o campos email precisar ser preenchido</span>:""}
+                 
                 </div>
                 {/*<div className='mb-2'>
                   <input
